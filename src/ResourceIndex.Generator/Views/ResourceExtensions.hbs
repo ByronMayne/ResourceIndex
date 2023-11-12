@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace {{Namespace}}
+{
+    /// <summary>
+    /// Contains extension methods for working with resources
+    ///</summary>
+    internal static class ResourceExtensions
+    {
+        /// <summary>
+        /// Opens the resource and reads all the lines of text and returns
+        /// back the results 
+        /// </summary>
+        public static string ToString(this Resources.Entry entry)
+        {
+            using (Stream stream = entry.GetStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
+        /// <summary>
+        /// Opens the resources stream and populates a stream reader and returns the results
+        /// </summary>
+        public static StreamReader ToStreamReader(this Resources.Entry entry)
+            => new StreamReader(entry.GetStream());
+
+        /// <summary>
+        /// Opens the stream and reads the lines of text one line at the time and returns the results 
+        /// </summary>
+        public static IEnumerable<string> ToLineEnumerable(this Resources.Entry entry)
+        {
+            using (Stream stream = entry.GetStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                while (!reader.EndOfStream)
+                {
+                    string value = reader.ReadLine();
+                    if(!string.IsNullOrEmpty(value))
+                    {
+                        yield return value;
+                    }
+                }
+            }
+        }
+    }
+}

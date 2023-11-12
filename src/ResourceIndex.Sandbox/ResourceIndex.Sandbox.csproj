@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\TextFile.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Cat-With-Invalid-Member@Name.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CatOne.jpg" />
+    <EmbeddedResource Include="Resources\DogWithLogicalName.jpg" LogicalName="DogLogicalName" ResourceName="DogResourceName" />
+    <EmbeddedResource Include="Resources\TextFile.txt" />
+    <PackageReference Include="Handlebars.Net" Version="2.1.4" />
+    <PackageReference Include="ResourceIndex.Generator" Version="1.0.0" />
+    <!--<ProjectReference Include="..\ResourceIndex.Generator\ResourceIndex.Generator.csproj">
+      <OutputItemType>Analyzer</OutputItemType>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>-->
+  </ItemGroup>
+  <!--<Import Project="../ResourceIndex.Generator/ResourceIndex.Generator.props" />
+  <Import Project="../ResourceIndex.Generator/ResourceIndex.Generator.targets" />-->
+</Project>

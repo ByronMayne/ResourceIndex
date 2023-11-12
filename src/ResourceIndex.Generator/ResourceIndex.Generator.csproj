@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <LangVersion>preview</LangVersion>
+    <IsRoslynComponent>true</IsRoslynComponent>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Platforms>AnyCPU</Platforms>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>ResourceIndex.Generator</Title>
+    <PackageTags>Generator;CSharp;Resources</PackageTags>
+    <TargetsForTfmSpecificContentInPackage>Nuget_AppendContent</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ResourceExtensions.hbs" LogicalName="Views/ResourceExtensions.hbs" />
+    <EmbeddedResource Include="Views\Resources.hbs" LogicalName="Views/Resources.hbs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Handlebars.Net" Version="2.1.4" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.4.0" />
+    <PackageReference Include="SourceGenerator.Foundations" Version="1.2.3" />
+  </ItemGroup>
+  <Target Name="Nuget_AppendContent">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="$(MSBuildThisFileDirectory)$(AssemblyName).props">
+        <PackagePath>build/$(AssemblyName).props</PackagePath>
+      </TfmSpecificPackageFile>
+      <TfmSpecificPackageFile Include="$(MSBuildThisFileDirectory)$(AssemblyName).targets">
+        <PackagePath>build/$(AssemblyName).targets</PackagePath>
+      </TfmSpecificPackageFile>
+      <TfmSpecificPackageFile Include="$(OutputPath)$(AssemblyName).dll">
+        <PackagePath>analyzers/dotnet/cs/$(AssemblyName).dll</PackagePath>
+      </TfmSpecificPackageFile>
+    </ItemGroup>
+  </Target>
+</Project>

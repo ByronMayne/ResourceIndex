@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Resource.Sandbox Target": {
+      "commandName": "DebugRoslynComponent",
+      "commandLineArgs": "../src/Resource.Sandbox/Resource.Sandbox.csproj"
+    }
+  }
+}

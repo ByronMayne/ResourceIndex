@@ -1,0 +1,48 @@
+﻿using System.IO;
+using System.Reflection;
+
+namespace {{Namespace}}
+{
+    /// <summary>
+    /// Provides static access to resources that are contained within this 
+    /// assembly 
+    /// </summary>
+    internal static class Resources 
+    {
+        private static Assembly s_assembly;
+
+        internal struct Entry 
+        {
+            public string Name { get; }
+            public string Key { get; }
+
+            public Entry(string name, string key)
+            {
+                Name = name;
+                Key = key;
+            }
+
+            // Loads the resources as the given type 
+            public Stream GetStream()
+               => Resources.GetStream(this);
+        }
+    
+        static Resources()
+        {
+            Type type = typeof(Resources);
+            s_assembly = type.Assembly;
+        }
+
+        {{#each Entries}}
+        public static Entry {{MemberName}} { get; } = new Entry("{{MemberName}}", "{{LogicalName}}");
+        {{/each}}
+
+        /// <summary>
+        /// Extracts the stream of the resource from the assembly and returns back the stream.
+        /// </summary>
+        /// <param name="entry">The entry being loaded</param>
+        /// <returns>The stream of the asset</returns>
+        public static Stream GetStream(Entry entry)
+            => s_assembly.GetManifestResourceStream(entry.Key);
+    }
+}
